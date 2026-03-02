@@ -1,0 +1,74 @@
+name: "TEST — BigQuery Live Test"
+
+on:
+  workflow_dispatch:
+    inputs:
+      test_date:
+        description: "Test date (YYYY-MM-DD HH:MM) or 'now' for current time"
+        required: false
+        default: "now"
+
+jobs:
+  test-bigquery:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Gauge (Posts 1 & 6)
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: |
+          cd scripts
+          python bist100_gauge.py
+          echo "--- Gauge output files ---"
+          ls -la gdelt_bq_results/bist100_gauge_*
+
+      - name: Run Ranking TR Positive (Post 2)
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: |
+          cd scripts
+          python bist100_ranking.py --scope TR --direction positive
+          echo "--- TR Positive output ---"
+          ls -la gdelt_bq_results/bist100_ranking_tr_positive_*
+
+      - name: Run Ranking TR Negative (Post 3)
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: |
+          cd scripts
+          python bist100_ranking.py --scope TR --direction negative
+          echo "--- TR Negative output ---"
+          ls -la gdelt_bq_results/bist100_ranking_tr_negative_*
+
+      - name: Run Ranking G20 Positive (Post 4)
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: |
+          cd scripts
+          python bist100_ranking.py --scope G20 --direction positive
+          echo "--- G20 Positive output ---"
+          ls -la gdelt_bq_results/bist100_ranking_g20_positive_*
+
+      - name: Run Ranking G20 Negative (Post 5)
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: |
+          cd scripts
+          python bist100_ranking.py --scope G20 --direction negative
+          echo "--- G20 Negative output ---"
+          ls -la gdelt_bq_results/bist100_ranking_g20_negative_*
+
+      - name: Upload test artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: bist100-test-results
+          path: scripts/gdelt_bq_results/
+          retention-days: 7
