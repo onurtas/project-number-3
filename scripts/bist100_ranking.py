@@ -32,8 +32,8 @@ print(f"Generating: {SCOPE} {DIRECTION} ranking")
 # ---------- 1) SETTINGS ----------
 from datetime import datetime, timedelta, timezone
 
-NOW_UTC = datetime(2026, 3, 1, 18, 0, tzinfo=timezone.utc)  # manual override for testing
-# NOW_UTC = datetime.now(timezone.utc)  # production mode
+# NOW_UTC = datetime(2026, 3, 1, 18, 0, tzinfo=timezone.utc)  # manual override for testing
+NOW_UTC = datetime.now(timezone.utc)  # production mode
 
 WINDOW_HOURS = 24
 TOP_N = 10
@@ -221,22 +221,21 @@ for idx, row in df_qualified.iterrows():
 
 if len(df_qualified) < MIN_COMPANIES_FOR_POST:
     print(f"\nWARNING: Only {len(df_qualified)} companies qualified (need {MIN_COMPANIES_FOR_POST}).")
-    if SCOPE == "G20":
-        print("Skipping G20 post — not enough international coverage.")
-        # Save skip metadata
-        OUTDIR = pathlib.Path("gdelt_bq_results"); OUTDIR.mkdir(exist_ok=True)
-        tag = window_end.strftime("%Y%m%d_%H%M")
-        skip_meta = {
-            "skipped": True,
-            "reason": f"Only {len(df_qualified)} companies qualified",
-            "scope": SCOPE,
-            "direction": DIRECTION,
-        }
-        skip_path = OUTDIR / f"bist100_ranking_{SCOPE.lower()}_{DIRECTION}_{tag}_post.json"
-        with open(skip_path, "w") as f:
-            json.dump(skip_meta, f, indent=2)
-        print(f"Saved: {skip_path}")
-        sys.exit(0)
+    print(f"Skipping {SCOPE} {DIRECTION} post — not enough data.")
+    # Save skip metadata
+    OUTDIR = pathlib.Path("gdelt_bq_results"); OUTDIR.mkdir(exist_ok=True)
+    tag = window_end.strftime("%Y%m%d_%H%M")
+    skip_meta = {
+        "skipped": True,
+        "reason": f"Only {len(df_qualified)} companies qualified",
+        "scope": SCOPE,
+        "direction": DIRECTION,
+    }
+    skip_path = OUTDIR / f"bist100_ranking_{SCOPE.lower()}_{DIRECTION}_{tag}_post.json"
+    with open(skip_path, "w") as f:
+        json.dump(skip_meta, f, indent=2)
+    print(f"Saved: {skip_path}")
+    sys.exit(0)
 
 # Select top N
 df_top = df_qualified.head(TOP_N).copy()

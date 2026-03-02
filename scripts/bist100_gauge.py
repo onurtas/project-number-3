@@ -17,8 +17,8 @@
 # ---------- 0) SETTINGS ----------
 from datetime import datetime, timedelta, timezone
 
-NOW_UTC = datetime(2026, 3, 1, 18, 0, tzinfo=timezone.utc)  # manual override for testing
-# NOW_UTC = datetime.now(timezone.utc)  # production mode
+# NOW_UTC = datetime(2026, 3, 1, 18, 0, tzinfo=timezone.utc)  # manual override for testing
+NOW_UTC = datetime.now(timezone.utc)  # production mode
 
 WINDOW_HOURS = 24
 MIN_ARTICLES_TOTAL = 30

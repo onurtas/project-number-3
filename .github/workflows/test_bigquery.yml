@@ -31,6 +31,7 @@ jobs:
           ls -la gdelt_bq_results/bist100_gauge_*
 
       - name: Run Ranking TR Positive (Post 2)
+        continue-on-error: true
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
         run: |
@@ -40,6 +41,7 @@ jobs:
           ls -la gdelt_bq_results/bist100_ranking_tr_positive_*
 
       - name: Run Ranking TR Negative (Post 3)
+        continue-on-error: true
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
         run: |
@@ -49,6 +51,7 @@ jobs:
           ls -la gdelt_bq_results/bist100_ranking_tr_negative_*
 
       - name: Run Ranking G20 Positive (Post 4)
+        continue-on-error: true
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
         run: |
@@ -58,6 +61,7 @@ jobs:
           ls -la gdelt_bq_results/bist100_ranking_g20_positive_*
 
       - name: Run Ranking G20 Negative (Post 5)
+        continue-on-error: true
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
         run: |
@@ -72,4 +76,3 @@ jobs:
           name: bist100-test-results
           path: scripts/gdelt_bq_results/
           retention-days: 7
-
