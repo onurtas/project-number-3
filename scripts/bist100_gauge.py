@@ -8,7 +8,7 @@
 #   L2: BIST/ticker co-occurrence for ambiguous (SQL)
 #   L3: Tone winsorization + min articles (Python)
 #
-# 20 gauge keywords: 5 generic BIST terms + 15 blue-chip companies
+# 28 gauge keywords: 13 generic BIST/market terms + 15 blue-chip companies
 # Two-stage aggregation: AVG per keyword → AVG of averages
 # Scale: -10 to +10
 # Project: gdelt-research-470509

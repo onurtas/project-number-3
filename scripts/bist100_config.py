@@ -179,11 +179,21 @@ print(f"BIST100 config loaded: {len(BIST100_COMPANIES)} companies "
 
 # ---------- GAUGE KEYWORDS ----------
 GAUGE_GENERIC_KEYWORDS = [
-    {"label": "borsa istanbul",   "pattern": r"borsa istanbul|\bbist\b"},
-    {"label": "hisse senedi",     "pattern": r"hisse senedi|hisse senetleri"},
+    # Core market terms
+    {"label": "borsa istanbul",   "pattern": r"borsa istanbul|\bbist\b|borsa-istanbul"},
+    {"label": "hisse senedi",     "pattern": r"hisse senedi|hisse senetleri|hisse-senedi"},
     {"label": "istanbul stock",   "pattern": r"istanbul stock exchange"},
-    {"label": "türk borsası",     "pattern": r"türk borsası|turk borsasi|turkish stock"},
+    {"label": "türk borsası",     "pattern": r"türk borsası|turk borsasi|turkish stock|turk-borsasi"},
     {"label": "BIST100",          "pattern": r"bist.?100|xu100"},
+    # Broader Turkish financial terms
+    {"label": "türk ekonomisi",   "pattern": r"türk ekonomi|turk ekonomi|turkish econom|turkiye ekonomi|türkiye ekonomi"},
+    {"label": "merkez bankası",   "pattern": r"merkez bankası|merkez bankasi|turkish central bank|tcmb"},
+    {"label": "hazine",           "pattern": r"hazine ve maliye|turkish treasury"},
+    {"label": "enflasyon TR",     "pattern": r"türkiye enflasyon|turkiye enflasyon|turkey inflation|turkish inflation"},
+    {"label": "faiz kararı",     "pattern": r"faiz kararı|faiz karar|interest rate turkey|turkish rate"},
+    {"label": "döviz kuru",       "pattern": r"döviz kuru|doviz kuru|turkish lira|türk lirası|turk lirasi|usd.?try"},
+    {"label": "KAP bildirimi",    "pattern": r"\bkap\b.*bildirim|kamuyu aydınlatma|kamuyu aydinlatma|kap-haberleri"},
+    {"label": "SPK",              "pattern": r"sermaye piyasası kurulu|sermaye piyasasi kurulu|\bspk\b"},
 ]
 
 # Top 15 blue-chip companies for gauge
@@ -199,7 +209,7 @@ for ticker in GAUGE_BLUECHIP_TICKERS:
     if company:
         GAUGE_KEYWORDS.append({"label": company["label"], "pattern": company["pattern"]})
 
-assert len(GAUGE_KEYWORDS) == 20, f"Expected 20 gauge keywords, got {len(GAUGE_KEYWORDS)}"
+assert len(GAUGE_KEYWORDS) == 28, f"Expected 28 gauge keywords, got {len(GAUGE_KEYWORDS)}"
 print(f"Gauge keywords: {len(GAUGE_KEYWORDS)} ({len(GAUGE_GENERIC_KEYWORDS)} generic + {len(GAUGE_BLUECHIP_TICKERS)} blue-chip)")
 
 # ---------- RANKING KEYWORDS ----------
