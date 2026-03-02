@@ -21,6 +21,13 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Run Diagnostic (check data coverage)
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: |
+          cd scripts
+          python diagnostic.py
+
       - name: Run Gauge (Posts 1 & 6)
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
