@@ -59,7 +59,7 @@ BIST100_COMPANIES = [
     {"label": "Aselsan",          "ticker": "ASELS", "pattern": r"\baselsan\b|\basels\b", "needs_context": False},
 
     # --- 11-20 ---
-    {"label": "Astor Enerji",     "ticker": "ASTOR", "pattern": r"astor enerji|\bastor\b", "needs_context": True},
+    {"label": "Astor Enerji",     "ticker": "ASTOR", "pattern": r"astor enerji", "needs_context": True},
     {"label": "Balsu Gıda",       "ticker": "BALSU", "pattern": r"balsu gıda|balsu gida|\bbalsu\b", "needs_context": False},
     {"label": "Batıçim",          "ticker": "BTCIM", "pattern": r"\bbatıçim\b|\bbaticim\b|\bbtcim\b|batı çimento|bati cimento", "needs_context": False},
     {"label": "Batısöke",         "ticker": "BSOKE", "pattern": r"\bbatısöke\b|\bbatisoke\b|\bbsoke\b", "needs_context": False},
@@ -76,7 +76,7 @@ BIST100_COMPANIES = [
     {"label": "Destek Finans",    "ticker": "DSTKF", "pattern": r"destek finans faktoring|destek faktoring|\bdstkf\b", "needs_context": False},
     {"label": "Doğan Holding",    "ticker": "DOHOL", "pattern": r"doğan holding|dogan holding|doğan şirketler|dogan sirketler|\bdohol\b", "needs_context": True},
     {"label": "Doğuş Otomotiv",   "ticker": "DOAS",  "pattern": r"doğuş otomotiv|dogus otomotiv|\bdoas\b", "needs_context": False},
-    {"label": "Efor Yatırım",     "ticker": "EFOR",  "pattern": r"efor yatırım|efor yatirim|\befor\b", "needs_context": True},
+    {"label": "Efor Yatırım",     "ticker": "EFOR",  "pattern": r"efor yatırım|efor yatirim", "needs_context": True},
     {"label": "Ege Endüstri",     "ticker": "EGEEN", "pattern": r"ege endüstri|ege endustri|\begeen\b", "needs_context": False},
     {"label": "Eczacıbaşı İlaç",  "ticker": "ECILC", "pattern": r"eczacıbaşı ilaç|eczacibasi ilac|\becilc\b|\beczacıbaşı\b|\beczacibasi\b", "needs_context": False},
     {"label": "Emlak Konut",      "ticker": "EKGYO", "pattern": r"emlak konut|\bekgyo\b", "needs_context": False},
@@ -87,7 +87,7 @@ BIST100_COMPANIES = [
     {"label": "ENKA İnşaat",      "ticker": "ENKAI", "pattern": r"enka inşaat|enka insaat|\benkai\b", "needs_context": False},
     {"label": "Ereğli Demir",     "ticker": "EREGL", "pattern": r"ereğli demir|eregli demir|\beregl\b|\berdemir\b", "needs_context": False},
     {"label": "Europower Enerji", "ticker": "EUPWR", "pattern": r"europower enerji|\beupwr\b|\beuropower\b", "needs_context": False},
-    {"label": "Fenerbahçe",       "ticker": "FENER", "pattern": r"fenerbahçe futbol|fenerbahce futbol|\bfener\b", "needs_context": True},
+    {"label": "Fenerbahçe",       "ticker": "FENER", "pattern": r"fenerbahçe futbol|fenerbahce futbol|\bfenerbahce\b|\bfenerbahçe\b", "needs_context": True},
     {"label": "Ford Otosan",      "ticker": "FROTO", "pattern": r"ford otosan|ford otomotiv|\bfroto\b", "needs_context": False},
     {"label": "Galatasaray",      "ticker": "GSRAY", "pattern": r"galatasaray sportif|\bgsray\b", "needs_context": True},
     {"label": "Gen İlaç",         "ticker": "GENIL", "pattern": r"gen ilaç|gen ilac|gen sağlık|gen saglik|\bgenil\b", "needs_context": True},
@@ -111,7 +111,7 @@ BIST100_COMPANIES = [
     {"label": "Koç Holding",      "ticker": "KCHOL", "pattern": r"koç holding|koc holding|\bkchol\b", "needs_context": False},
     {"label": "Kontrolmatik",     "ticker": "KONTR", "pattern": r"\bkontrolmatik\b|\bkontr\b", "needs_context": False},
     {"label": "Kuyaş Yatırım",    "ticker": "KUYAS", "pattern": r"kuyaş yatırım|kuyas yatirim|\bkuyas\b", "needs_context": False},
-    {"label": "Margün Enerji",    "ticker": "MAGEN", "pattern": r"margün enerji|margun enerji|\bmagen\b", "needs_context": True},
+    {"label": "Margün Enerji",    "ticker": "MAGEN", "pattern": r"margün enerji|margun enerji", "needs_context": True},
     {"label": "Mavi Giyim",       "ticker": "MAVI",  "pattern": r"mavi giyim", "needs_context": True},
     {"label": "MIA Teknoloji",    "ticker": "MIATK", "pattern": r"mia teknoloji|\bmiatk\b", "needs_context": True},
     {"label": "Migros",           "ticker": "MGROS", "pattern": r"\bmigros\b|\bmgros\b", "needs_context": False},
@@ -119,11 +119,11 @@ BIST100_COMPANIES = [
     {"label": "Oba Makarnacılık", "ticker": "OBAMS", "pattern": r"oba makarnacılık|oba makarnacilik|\bobams\b", "needs_context": True},
 
     # --- 61-70 ---
-    {"label": "Odaş Elektrik",    "ticker": "ODAS",  "pattern": r"odaş elektrik|odas elektrik|\bodas\b", "needs_context": True},
+    {"label": "Odaş Elektrik",    "ticker": "ODAS",  "pattern": r"odaş elektrik|odas elektrik", "needs_context": True},
     {"label": "Otokar",           "ticker": "OTKAR", "pattern": r"\botokar\b|\botkar\b", "needs_context": False},
     {"label": "Oyak Çimento",     "ticker": "OYAKC", "pattern": r"oyak çimento|oyak cimento|\boyakc\b", "needs_context": False},
     {"label": "Pasifik Eurasia",  "ticker": "PASEU", "pattern": r"pasifik eurasia|pasifik lojistik|\bpaseu\b", "needs_context": False},
-    {"label": "Pasifik Teknoloji","ticker": "PATEK", "pattern": r"pasifik teknoloji|\bpatek\b", "needs_context": True},
+    {"label": "Pasifik Teknoloji","ticker": "PATEK", "pattern": r"pasifik teknoloji", "needs_context": True},
     {"label": "Pegasus",          "ticker": "PGSUS", "pattern": r"pegasus hava|pegasus air|\bpgsus\b", "needs_context": True},
     {"label": "Petkim",           "ticker": "PETKM", "pattern": r"\bpetkim\b|\bpetkm\b", "needs_context": False},
     {"label": "Qua Granite",      "ticker": "QUAGR", "pattern": r"qua granite|\bquagr\b", "needs_context": False},
@@ -131,7 +131,7 @@ BIST100_COMPANIES = [
     {"label": "Reeder Teknoloji", "ticker": "REEDR", "pattern": r"reeder teknoloji|\breedr\b", "needs_context": False},
 
     # --- 71-80 ---
-    {"label": "Sasa Polyester",   "ticker": "SASA",  "pattern": r"sasa polyester|\bsasa\b", "needs_context": True},
+    {"label": "Sasa Polyester",   "ticker": "SASA",  "pattern": r"sasa polyester", "needs_context": True},
     {"label": "Şekerbank",        "ticker": "SKBNK", "pattern": r"\bşekerbank\b|\bsekerbank\b|\bskbnk\b", "needs_context": False},
     {"label": "Şok Marketler",    "ticker": "SOKM",  "pattern": r"şok marketler|sok marketler|\bsokm\b", "needs_context": False},
     {"label": "Tab Gıda",         "ticker": "TABGD", "pattern": r"tab gıda|tab gida|\btabgd\b", "needs_context": True},
