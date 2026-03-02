@@ -72,3 +72,4 @@ jobs:
           name: bist100-test-results
           path: scripts/gdelt_bq_results/
           retention-days: 7
+
