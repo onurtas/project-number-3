@@ -1,0 +1,74 @@
+name: "Posts 2+3 — TR Rankings (10:00 UTC)"
+
+on:
+  schedule:
+    - cron: "0 10 * * *"
+  workflow_dispatch:
+
+jobs:
+  tr-rankings:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate TR Positive ranking
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: |
+          cd scripts
+          python bist100_ranking.py --scope TR --direction positive
+
+      - name: Post TR Positive to X
+        env:
+          X_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+          X_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
+        run: |
+          cd scripts
+          POST_JSON=$(ls gdelt_bq_results/bist100_ranking_tr_positive_*_post.json | head -1)
+          echo "Posting: $POST_JSON"
+          # Check if skipped
+          if python3 -c "import json; d=json.load(open('$POST_JSON')); exit(0 if d.get('skipped') else 1)" 2>/dev/null; then
+            echo "TR Positive skipped — not enough data"
+          else
+            python twitter_poster.py "$POST_JSON" ranking
+          fi
+
+      - name: Generate TR Negative ranking
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: |
+          cd scripts
+          python bist100_ranking.py --scope TR --direction negative
+
+      - name: Post TR Negative to X
+        env:
+          X_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+          X_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
+        run: |
+          cd scripts
+          POST_JSON=$(ls gdelt_bq_results/bist100_ranking_tr_negative_*_post.json | head -1)
+          echo "Posting: $POST_JSON"
+          if python3 -c "import json; d=json.load(open('$POST_JSON')); exit(0 if d.get('skipped') else 1)" 2>/dev/null; then
+            echo "TR Negative skipped — not enough data"
+          else
+            python twitter_poster.py "$POST_JSON" ranking
+          fi
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tr-rankings-${{ github.run_number }}
+          path: scripts/gdelt_bq_results/
+          retention-days: 7
