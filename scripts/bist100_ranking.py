@@ -118,11 +118,13 @@ ambig_kw_sql = ",\n    ".join(
 
 # Country filter based on scope
 if SCOPE == "TR":
-    country_filter = "lkp.countrycode = 'TR'"
+    country_filter = "g.source_domain LIKE '%.tr'"
+    scope_join = "-- no lookup join for TR scope"
     scope_label_tr = "Türkiye Medyası"
 else:
     g20_sql = ", ".join([f"'{c}'" for c in G20_COUNTRIES])
     country_filter = f"lkp.countrycode IN ({g20_sql})"
+    scope_join = "JOIN lkp ON g.domain = lkp.domain"
     scope_label_tr = "Uluslararası Medya"
 
 # ---------- 5) BIGQUERY ----------
@@ -135,6 +137,7 @@ g AS (
   SELECT
     SUBSTR(GKGRECORDID, 1, 14) AS record_ts,
     NET.REG_DOMAIN(DocumentIdentifier) AS domain,
+    SourceCommonName AS source_domain,
     LOWER(CONCAT(
       COALESCE(V2Themes, ''), ' ',
       COALESCE(V2Persons, ''), ' ',
@@ -152,7 +155,7 @@ g AS (
 scope_filtered AS (
   SELECT g.text_all, g.tone_val, g.domain
   FROM g
-  JOIN lkp ON g.domain = lkp.domain
+  {scope_join}
   WHERE g.record_ts BETWEEN '{window_start_ts}' AND '{window_end_ts}'
     AND g.tone_val IS NOT NULL
     AND g.tone_val BETWEEN -{TONE_WINSORIZE} AND {TONE_WINSORIZE}

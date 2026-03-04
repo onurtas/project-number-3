@@ -105,6 +105,7 @@ g AS (
   SELECT
     SUBSTR(GKGRECORDID, 1, 14) AS record_ts,
     NET.REG_DOMAIN(DocumentIdentifier) AS domain,
+    SourceCommonName AS source_domain,
     LOWER(CONCAT(
       COALESCE(V2Themes, ''), ' ',
       COALESCE(V2Persons, ''), ' ',
@@ -133,7 +134,7 @@ kw AS (
 ),
 hits AS (
   SELECT
-    kw.label, f.tone_val, f.record_ts, f.domain
+    kw.label, f.tone_val, f.record_ts, f.domain, f.source_domain
   FROM filtered f
   JOIN kw ON REGEXP_CONTAINS(f.text_all, kw.pattern)
 ),
@@ -143,8 +144,7 @@ tr_agg AS (
     AVG(h.tone_val) AS tone_avg,
     COUNT(*) AS n_articles
   FROM hits h
-  JOIN lkp ON h.domain = lkp.domain
-  WHERE lkp.countrycode = 'TR'
+  WHERE h.source_domain LIKE '%.tr'
   GROUP BY h.label
 ),
 g20_agg AS (
