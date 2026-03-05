@@ -378,7 +378,7 @@ gauge_data = {
     "financial_theme_filter": "Layer 1 applied",
     "turkey": gauge_tr,
     "g20": gauge_g20,
-    "g20_countries": G20_COUNTRIES,
+    "g20_countries": "all international (non-TR)",
     "per_keyword": df_raw.to_dict(orient="records")
 }
 json_path = OUTDIR / f"bist100_gauge_{tag}.json"

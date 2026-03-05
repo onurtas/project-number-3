@@ -331,7 +331,7 @@ fig.suptitle(full_title, fontsize=16, fontweight="bold", color="#111827", y=0.98
 subtitle_date = f"{window_end.strftime('%d.%m.%Y %H:%M')} UTC  ·  son 24 saat"
 if SCOPE == "G20":
     fig.text(0.5, 0.92, subtitle_date, ha="center", fontsize=10, color="#6B7280")
-    fig.text(0.5, 0.895, "(ABD, İngiltere, Almanya, Fransa, Japonya, Çin)",
+    fig.text(0.5, 0.895, "(100.000+ uluslararası kaynak · 152 dil)",
              ha="center", fontsize=9, color="#6B7280")
     rect_top = 0.87
 else:
@@ -368,7 +368,7 @@ ranking_data = {
     "timestamp": window_end.isoformat(),
     "window_hours": WINDOW_HOURS,
     "scope": SCOPE,
-    "scope_countries": ["TR"] if SCOPE == "TR" else G20_COUNTRIES,
+    "scope_countries": ["TR"] if SCOPE == "TR" else "all international (non-TR)",
     "direction": DIRECTION,
     "min_articles": MIN_ARTICLES,
     "tone_winsorize": TONE_WINSORIZE,
