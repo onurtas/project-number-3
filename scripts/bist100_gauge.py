@@ -153,8 +153,7 @@ g20_agg AS (
     AVG(h.tone_val) AS tone_avg,
     COUNT(*) AS n_articles
   FROM hits h
-  JOIN lkp ON h.domain = lkp.domain
-  WHERE lkp.countrycode IN ({g20_sql})
+  WHERE h.source_domain NOT LIKE '%.tr'
   GROUP BY h.label
 )
 SELECT * FROM tr_agg

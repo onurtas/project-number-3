@@ -122,9 +122,8 @@ if SCOPE == "TR":
     scope_join = "-- no lookup join for TR scope"
     scope_label_tr = "Türkiye Medyası"
 else:
-    g20_sql = ", ".join([f"'{c}'" for c in G20_COUNTRIES])
-    country_filter = f"lkp.countrycode IN ({g20_sql})"
-    scope_join = "JOIN lkp ON g.domain = lkp.domain"
+    country_filter = "g.source_domain NOT LIKE '%.tr'"
+    scope_join = "-- no lookup join for G20 scope (all non-.tr)"
     scope_label_tr = "Uluslararası Medya"
 
 # ---------- 5) BIGQUERY ----------
@@ -237,6 +236,26 @@ if len(df_qualified) < MIN_COMPANIES_FOR_POST:
     skip_path = OUTDIR / f"bist100_ranking_{SCOPE.lower()}_{DIRECTION}_{tag}_post.json"
     with open(skip_path, "w") as f:
         json.dump(skip_meta, f, indent=2)
+    print(f"Saved: {skip_path}")
+    sys.exit(0)
+
+# Filter: positive ranking shows only positive tone, negative shows only negative
+if DIRECTION == "positive":
+    df_qualified = df_qualified[df_qualified["avg_tone"] >= 0]
+else:
+    df_qualified = df_qualified[df_qualified["avg_tone"] < 0]
+
+if len(df_qualified) < MIN_COMPANIES_FOR_POST:
+    print(f"\nOnly {len(df_qualified)} companies with {'positive' if DIRECTION == 'positive' else 'negative'} tone. Skipping.")
+    skip_data = {
+        "skipped": True,
+        "reason": f"Only {len(df_qualified)} companies with {DIRECTION} tone",
+        "scope": SCOPE,
+        "direction": DIRECTION,
+    }
+    skip_path = OUTDIR / f"bist100_ranking_{SCOPE.lower()}_{DIRECTION}_{tag}_post.json"
+    with open(skip_path, "w") as f:
+        json.dump(skip_data, f, indent=2)
     print(f"Saved: {skip_path}")
     sys.exit(0)
 

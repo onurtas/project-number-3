@@ -239,7 +239,7 @@ TOP_N = 10
 # Outlier removal (Layer 3)
 TONE_WINSORIZE_LIMIT = 15       # Cap extreme tones at ±15
 SINGLE_SOURCE_CAP = 0.60        # Flag if >60% articles from one domain
-MIN_COMPANIES_FOR_POST = 3      # Skip G20 ranking post if fewer qualify
+MIN_COMPANIES_FOR_POST = 2      # Skip ranking post if fewer qualify
 
 # ---------- CHART TEXT ----------
 CHART_TITLE_GAUGE = "BIST100 Haber Duygu Göstergesi"
