@@ -221,12 +221,12 @@ for idx, row in df_qualified.iterrows():
     if row["n_domains"] == 1 and row["n_articles"] > 1:
         print(f"  ⚠️  {row['label']}: all {int(row['n_articles'])} articles from {row['top_domain']}")
 
+OUTDIR = pathlib.Path("gdelt_bq_results"); OUTDIR.mkdir(exist_ok=True)
+tag = window_end.strftime("%Y%m%d_%H%M")
+
 if len(df_qualified) < MIN_COMPANIES_FOR_POST:
     print(f"\nWARNING: Only {len(df_qualified)} companies qualified (need {MIN_COMPANIES_FOR_POST}).")
     print(f"Skipping {SCOPE} {DIRECTION} post — not enough data.")
-    # Save skip metadata
-    OUTDIR = pathlib.Path("gdelt_bq_results"); OUTDIR.mkdir(exist_ok=True)
-    tag = window_end.strftime("%Y%m%d_%H%M")
     skip_meta = {
         "skipped": True,
         "reason": f"Only {len(df_qualified)} companies qualified",
@@ -355,8 +355,6 @@ fig.text(0.5, 0.005, DISCLAIMER,
 plt.tight_layout(rect=[0, 0.04, 1, rect_top])
 
 # Save
-OUTDIR = pathlib.Path("gdelt_bq_results"); OUTDIR.mkdir(exist_ok=True)
-tag = window_end.strftime("%Y%m%d_%H%M")
 png_path = OUTDIR / f"bist100_ranking_{SCOPE.lower()}_{DIRECTION}_{tag}.png"
 plt.savefig(png_path, dpi=200, bbox_inches="tight", facecolor="white")
 plt.close()
