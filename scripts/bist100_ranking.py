@@ -37,7 +37,7 @@ NOW_UTC = datetime.now(timezone.utc)  # production mode
 
 WINDOW_HOURS = 24
 TOP_N = 10
-MIN_ARTICLES = 3
+MIN_ARTICLES = 2
 TONE_WINSORIZE = 15
 MIN_COMPANIES_FOR_POST = 3  # skip G20 post if fewer qualify
 
